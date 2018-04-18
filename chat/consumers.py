@@ -9,7 +9,7 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
 
     def disconnect(self, close_code):
-        pass
+        print("websocket disconnect")
 
     def receive(self, text_data):
         while True:
