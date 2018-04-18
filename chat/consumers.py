@@ -14,6 +14,8 @@ class ChatConsumer(WebsocketConsumer):
         time.sleep(3)
         print(text_data)
         self.send(text_data=json.dumps({'message':'nihao'}))
+        time.sleep(3)
+        self.send(text_data=json.dumps({'message':'python'}))
         # text_data_json = json.loads(text_data)
         # message = text_data_json['message']
         #
