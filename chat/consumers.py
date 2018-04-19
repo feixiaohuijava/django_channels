@@ -3,6 +3,7 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from mysite.settings import BASE_DIR
 import time
+import linecache
 
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
@@ -12,26 +13,17 @@ class ChatConsumer(WebsocketConsumer):
         print("websocket disconnect")
 
     def receive(self, text_data):
+        start_count = 0
         while True:
-            time.sleep(3)
-            file = open(BASE_DIR + '/chat/' + 'deploy.log')
-            for line in file:
-                self.send(text_data=json.dumps({'message':line}))
-
-
-        # time.sleep(3)
-        # print(text_data)
-        # self.send(text_data=json.dumps({'message':'nihao'}))
-        # time.sleep(3)
-        # self.send(text_data=json.dumps({'message':'python'}))
-        # text_data_json = json.loads(text_data)
-        # message = text_data_json['message']
-        #
-        # self.send(text_data=json.dumps({
-        #     'message': message
-        # }))
-        # print("receive function")
-        # time.sleep(3)
-        # self.send(text_data=json.dumps({
-        #     'message': 'nihao'
-        # }))
+            filepath = BASE_DIR + '/chat/' + 'deploy.log'
+            end_count = len(open(filepath, 'rU').readlines())
+            if end_count > start_count:
+                file = open(filepath, 'rU')
+                temp_count = 1
+                for line in file:
+                    if temp_count > start_count and temp_count <=end_count:
+                        self.send(text_data=json.dumps({'message':line}))
+                    else:
+                        pass
+                    temp_count += 1
+                start_count = end_count
