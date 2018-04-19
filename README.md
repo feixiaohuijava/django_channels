@@ -8,5 +8,4 @@ python manage.py runserver
 访问127.0.0.1:8000/chat/lol/即可，
 点击websocket链接，就能看到一次请求，后端有了数据自动反馈（consumer代码里可以看到是sleep的）。
 
-后端主要是读取deploy.log的日志（deploy.sh脚本生成当前时间给
-deploy.log），然后每三秒钟去看下日志是否有更新(这块暂时是利用sleep实现的)，然后读取日志反馈到前端
+后端是deploy.sh每五秒钟去deploy.log添加一行当前时间的日志，而consumers.py就是读取deploy.log日志，做到有数据增加，就反馈到页面。
