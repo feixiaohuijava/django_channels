@@ -9,3 +9,4 @@ python manage.py runserver
 点击websocket链接，就能看到一次请求，后端有了数据自动反馈（consumer代码里可以看到是sleep的）。
 
 后端是deploy.sh每五秒钟去deploy.log添加一行当前时间的日志，而consumers.py就是读取deploy.log日志，做到有数据增加，就反馈到页面。
+
